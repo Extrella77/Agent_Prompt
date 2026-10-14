@@ -1,0 +1,23 @@
+# 虚拟环境，绝对不要上传
+.venv/
+venv/
+env/
+
+# 密钥配置文件！！保护你的API Key
+src/.env
+.env
+
+# chroma向量数据库文件夹
+src/CHROMA_DIR/
+
+# json对话历史记录
+src/chat_history.json
+src/backend/data/sessions.json
+
+# pyc缓存、日志
+__pycache__/
+*.pyc
+*.log
+
+# pycharm配置文件夹
+.idea/

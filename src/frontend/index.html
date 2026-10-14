@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>智慧小圆</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- 左侧历史对话栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sidebar-head">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path
+                d="M42.6 13.4c-6.9 1.5-11.9 5.9-14.4 11.9-2.4-4.6-7.3-8-13.1-8.9 1.5 2.8 2.2 5.6 2.2 8.3 0 6.6-4.7 12.3-11.2 13.7 3.9 2.5 8.5 3.7 13.5 3.7 12.4 0 22.6-8.6 24.5-20.7.3-2.3.3-4.6-.1-6.9-.4-.4-.9-.8-1.4-1.1z"
+                fill="currentColor" />
+            </svg>
+          </span>
+          <div class="brand-text">
+            <span class="brand-name">智慧小圆</span>
+            <span class="brand-sub">回答你的所有问题</span>
+          </div>
+        </div>
+
+        <button class="new-chat-btn" id="newChatBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span>开启新对话</span>
+        </button>
+
+        <div class="history-head">历史对话</div>
+        <div class="session-list" id="sessionList"></div>
+        <p class="sidebar-empty" id="sidebarEmpty" hidden>还没有历史对话</p>
+      </div>
+    </aside>
+
+    <!-- 右侧主区域 -->
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="topbar-left">
+            <button id="toggleSidebarBtn" class="icon-btn" type="button" title="收起 / 展开侧边栏">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="3" />
+                <path d="M9.5 4v16" />
+              </svg>
+            </button>
+            <span class="chat-title" id="chatTitle">新对话</span>
+          </div>
+
+          <div class="topbar-actions">
+            <button id="themeBtn" class="icon-btn" type="button" title="切换深色 / 浅色主题">
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+              </svg>
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4.2" />
+                <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" />
+              </svg>
+            </button>
+
+            <button id="clearBtn" class="ghost-btn" type="button" title="清空当前对话">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6m2 0v13.5A1.5 1.5 0 0 1 16.5 21h-9A1.5 1.5 0 0 1 6 19.5V6" />
+                <path d="M10 11v6M14 11v6" />
+              </svg>
+              <span>清空对话</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- 对话滚动区域 -->
+      <main class="chat" id="chat">
+        <div class="chat-inner">
+          <section class="welcome" id="welcome">
+            <div class="welcome-logo">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path
+                  d="M42.6 13.4c-6.9 1.5-11.9 5.9-14.4 11.9-2.4-4.6-7.3-8-13.1-8.9 1.5 2.8 2.2 5.6 2.2 8.3 0 6.6-4.7 12.3-11.2 13.7 3.9 2.5 8.5 3.7 13.5 3.7 12.4 0 22.6-8.6 24.5-20.7.3-2.3.3-4.6-.1-6.9-.4-.4-.9-.8-1.4-1.1z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <h1 class="welcome-title">有什么可以帮你的吗？</h1>
+            <p class="welcome-desc">我会基于本地知识库为你解答 AI 基础概念，也支持天气、节假日、单词、菜谱等查询。</p>
+            <div class="chips" id="chips">
+              <button class="chip" type="button" data-q="什么是 Token？">什么是 Token？</button>
+              <button class="chip" type="button" data-q="今天会有好运气吗？">今天会有好运气吗？</button>
+              <button class="chip" type="button" data-q="晚上只有鸡蛋和面包，可以做什么吃？">晚上只有鸡蛋和面包，可以做什么吃？</button>
+              <button class="chip" type="button" data-q="广州的天气怎么样？">广州的天气怎么样？</button>
+            </div>
+          </section>
+
+          <div class="messages" id="messages"></div>
+        </div>
+      </main>
+
+      <!-- 底部输入区 -->
+      <footer class="composer">
+        <div class="composer-inner">
+          <div class="composer-box" id="composerBox">
+            <textarea id="input" rows="1" placeholder="快给我发送消息吧…" autocomplete="off"></textarea>
+            <button id="sendBtn" class="send-btn" type="button" title="发送">
+              <svg class="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="composer-foot">
+            <span class="tip">Enter 发送 · Shift + Enter 换行</span>
+            <button id="stopBtn" class="stop-btn" type="button" hidden>■ 停止生成</button>
+          </div>
+          <p class="disclaimer">内容由 AI 基于本地知识库生成，请注意甄别。</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- 通用确认弹窗 -->
+  <div class="modal-mask" id="modalMask" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-icon" id="modalIcon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6m2 0v13.5A1.5 1.5 0 0 1 16.5 21h-9A1.5 1.5 0 0 1 6 19.5V6" />
+          <path d="M10 11v6M14 11v6" />
+        </svg>
+      </div>
+      <h3 class="modal-title" id="modalTitle">清空当前对话？</h3>
+      <p class="modal-desc" id="modalDesc">清空后本次对话的聊天记录将从历史列表中移除，且无法恢复。</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modalCancel" type="button">取消</button>
+        <button class="btn btn-danger" id="modalConfirm" type="button">确定清空</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本地 axios（离线可用），失败时由 app.js 回退到原生 fetch -->
+  <script src="vendor/axios.min.js"></script>
+  <script src="markdown.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

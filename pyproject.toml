@@ -1,0 +1,27 @@
+[project]
+name = "agent-prompt"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.141.1",
+    "langchain>=1.4.1",
+    "langchain-chroma>=1.1.0",
+    "langchain-community>=0.4.2",
+    "langchain-openai>=1.6.2",
+    "langchain-text-splitters>=1.1.2",
+    "python-dotenv>=1.2.3",
+    "requests>=2.34.2",
+    "uvicorn[standard]>=0.53.0",
+]
+
+[project.scripts]
+agent-prompt = "agent_prompt:main"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
